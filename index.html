@@ -3,266 +3,64 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>I.A.R.A. ZEUS - Pacotão Ultra Completo</title>
-
-<!-- SEO e Redes Sociais -->
-<meta name="description" content="I.A.R.A. ZEUS - Inteligência Artificial avançada com comandos por voz, integração social e geração de APK." />
-<meta property="og:title" content="I.A.R.A. ZEUS" />
-<meta property="og:description" content="Pacotão completo para PWA, reconhecimento de voz, redes sociais e mais." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://seusite.com" />
-<meta property="og:image" content="https://seusite.com/preview.png" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="I.A.R.A. ZEUS" />
-<meta name="twitter:description" content="Pacotão ultra funcional para site moderno e leve." />
-<meta name="twitter:image" content="https://seusite.com/preview.png" />
-
-<!-- Manifest para PWA -->
-<link rel="manifest" href="manifest.json" />
-<meta name="theme-color" content="#0ff" />
-
-<!-- Favicon -->
-<link rel="icon" href="favicon.ico" />
-
+<title>Império Zeus - Iara</title>
 <style>
   body {
-    margin: 0; padding: 1rem;
-    background: linear-gradient(135deg, #020024, #090979, #00d4ff);
-    color: #e0f7fa;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #0a3d62, #1e3799, #3c40c6);
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+  }
+  header {
+    margin-top: 30px;
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: #f39c12;
+    text-shadow: 0 0 10px #f39c12, 0 0 20px #f1c40f;
+  }
+  main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
     align-items: center;
   }
-  h1 {
-    margin-bottom: 0.3rem;
-    text-align: center;
+  .ball {
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle at center, #00ffff, #006064);
+    border-radius: 50%;
+    box-shadow:
+      0 0 20px #00ffff,
+      inset 0 0 40px #00ffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
+    font-weight: 800;
+    color: #0a3d62;
+    text-shadow: 0 0 5px #004d40;
   }
-  #status {
-    margin: 1rem 0;
-    font-size: 1.2rem;
-    background: rgba(0,255,255,0.1);
-    padding: 1rem 2rem;
-    border-radius: 12px;
-    box-shadow: 0 0 12px #0ff;
-    max-width: 600px;
-    text-align: center;
-    user-select: none;
-  }
-  button {
-    margin: 0.5rem 0.3rem;
-    background-color: #00e5ff;
-    border: none;
-    color: #00363a;
-    padding: 0.8rem 1.8rem;
-    font-size: 1rem;
-    border-radius: 20px;
-    cursor: pointer;
-    box-shadow: 0 0 8px #00e5ff;
-    transition: background-color 0.3s ease;
-    user-select: none;
-  }
-  button:hover {
-    background-color: #00b8d4;
-  }
-  #social-buttons {
-    margin: 1rem 0;
-  }
-  #social-buttons button {
-    min-width: 120px;
-  }
-  #ad-container {
-    position: fixed;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #00b8d4;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 15px;
-    box-shadow: 0 0 15px #00b8d4;
-    z-index: 9999;
-    user-select: none;
-  }
-  #apk-area {
-    margin-top: 2rem;
-    max-width: 600px;
-    width: 100%;
-    background: rgba(0, 255, 255, 0.1);
-    padding: 1rem;
-    border-radius: 12px;
-    box-shadow: 0 0 10px #0ff;
-  }
-  input[type="file"] {
-    margin-top: 0.5rem;
+  footer {
+    margin-bottom: 25px;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #00ffff;
+    text-shadow: 0 0 15px #00ffff, 0 0 30px #00bcd4;
   }
 </style>
 </head>
 <body>
-
-<h1>I.A.R.A. ZEUS - Pacotão Ultra Completo</h1>
-<p>Comandos por voz: diga <strong>"Acordar Iara"</strong> para ativar e <strong>"Descansar Iara"</strong> para pausar.</p>
-
-<div id="status">Status: Aguardando comando...</div>
-
-<button id="voiceToggleBtn">Ativar Reconhecimento de Voz</button>
-
-<div id="social-buttons">
-  <button onclick="shareFacebook()">Facebook</button>
-  <button onclick="shareTwitter()">Twitter</button>
-  <button onclick="shareWhatsApp()">WhatsApp</button>
-  <button onclick="shareTelegram()">Telegram</button>
-</div>
-
-<div id="apk-area">
-  <h2>Gerar APK - Exemplo</h2>
-  <button onclick="generateAPK()">Criar APK (simulação)</button>
-  <p id="apk-status"></p>
-  <input type="file" id="apk-upload" />
-  <button onclick="uploadAPK()">Fazer Upload APK (simulação)</button>
-</div>
-
-<script>
-// Variáveis
-let isActive = false;
-const status = document.getElementById('status');
-const voiceBtn = document.getElementById('voiceToggleBtn');
-const apkStatus = document.getElementById('apk-status');
-
-const synth = window.speechSynthesis;
-let recognition;
-
-function speak(text) {
-  if (synth.speaking) synth.cancel();
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = 'pt-BR';
-  utterance.rate = 1;
-  synth.speak(utterance);
-}
-
-function handleCommand(cmd) {
-  cmd = cmd.toLowerCase();
-  if (cmd.includes('acordar iara')) {
-    isActive = true;
-    speak('Iara ativada. Pronta para ajudar.');
-    status.textContent = 'Status: I.A.R.A. ativada!';
-  } else if (cmd.includes('descansar iara')) {
-    isActive = false;
-    speak('Entrando em modo de descanso.');
-    status.textContent = 'Status: I.A.R.A. em descanso.';
-  } else if (isActive) {
-    if (cmd.includes('quem é você')) {
-      speak('Eu sou a I.A.R.A. Zeus, sua inteligência artificial autônoma.');
-    } else if (cmd.includes('criar apk')) {
-      speak('Iniciando criação do APK, por favor aguarde.');
-      apkStatus.textContent = 'Processo de criação do APK iniciado... (simulação)';
-    } else if (cmd.includes('mostrar anúncio')) {
-      speak('Exibindo anúncio.');
-      showAd();
-    } else if (cmd.includes('abrir site')) {
-      speak('Abrindo site solicitado.');
-      window.open('https://www.google.com', '_blank');
-    } else {
-      speak('Comando recebido: ' + cmd);
-    }
-  }
-}
-
-function showAd() {
-  if (!document.getElementById('ad-container')) {
-    const adDiv = document.createElement('div');
-    adDiv.id = 'ad-container';
-    adDiv.textContent = 'Aqui poderia estar um anúncio real do Google AdSense.';
-    document.body.appendChild(adDiv);
-    setTimeout(() => { adDiv.remove(); }, 5000);
-  }
-}
-
-// Botões redes sociais
-function shareFacebook() {
-  const url = encodeURIComponent(window.location.href);
-  window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
-}
-function shareTwitter() {
-  const url = encodeURIComponent(window.location.href);
-  const text = encodeURIComponent('Confira o site I.A.R.A. ZEUS!');
-  window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
-}
-function shareWhatsApp() {
-  const text = encodeURIComponent('Confira o site I.A.R.A. ZEUS! ' + window.location.href);
-  window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
-}
-function shareTelegram() {
-  const url = encodeURIComponent(window.location.href);
-  window.open(`https://telegram.me/share/url?url=${url}`, '_blank');
-}
-
-// Geração e upload simulados de APK
-function generateAPK() {
-  apkStatus.textContent = 'Criando APK... (simulação)';
-  setTimeout(() => {
-    apkStatus.textContent = 'APK criado com sucesso! (simulação)';
-  }, 3000);
-}
-function uploadAPK() {
-  const fileInput = document.getElementById('apk-upload');
-  if (fileInput.files.length === 0) {
-    apkStatus.textContent = 'Nenhum arquivo selecionado para upload.';
-    return;
-  }
-  apkStatus.textContent = 'Fazendo upload do APK... (simulação)';
-  setTimeout(() => {
-    apkStatus.textContent = 'Upload concluído! (simulação)';
-  }, 3000);
-}
-
-// Reconhecimento de voz
-if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  recognition = new SpeechRecognition();
-  recognition.lang = 'pt-BR';
-  recognition.continuous = true;
-  recognition.interimResults = false;
-
-  recognition.onresult = event => {
-    const last = event.results.length - 1;
-    const command = event.results[last][0].transcript.trim();
-    status.textContent = 'Você disse: "' + command + '"';
-    handleCommand(command);
-  };
-
-  recognition.onerror = event => {
-    status.textContent = 'Erro no reconhecimento: ' + event.error;
-  };
-
-  recognition.onend = () => {
-    if (isActive) recognition.start();
-  };
-
-  voiceBtn.addEventListener('click', () => {
-    if (voiceBtn.textContent.includes('Ativar')) {
-      recognition.start();
-      voiceBtn.textContent = 'Desativar Reconhecimento de Voz';
-      status.textContent = 'Reconhecimento iniciado. Fale com a Iara.';
-    } else {
-      recognition.stop();
-      voiceBtn.textContent = 'Ativar Reconhecimento de Voz';
-      status.textContent = 'Reconhecimento pausado.';
-    }
-  });
-} else {
-  voiceBtn.disabled = true;
-  status.textContent = 'Navegador não suporta reconhecimento de voz.';
-}
-
-// Registro do Service Worker para PWA
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('service-worker.js')
-    .then(() => console.log('Service Worker registrado com sucesso.'))
-    .catch(e => console.error('Erro ao registrar Service Worker:', e));
-}
-</script>
-
+  <header>Império Zeus</header>
+  <main>
+    <div class="ball">Iara</div>
+  </main>
+  <footer>Iara</footer>
 </body>
 </html>
