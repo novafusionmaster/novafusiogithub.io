@@ -1,21 +1,28 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Iara</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nova Fusion Master</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#00ffff" />
   <style>
     html, body {
       margin: 0;
-      padding: 0;
       height: 100%;
-      overflow: hidden;
-    }
-    body {
       background: url('Iara.jpg') no-repeat center center fixed;
       background-size: cover;
+      font-family: Arial, sans-serif;
     }
   </style>
 </head>
 <body>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(() => console.log('Service Worker registrado com sucesso!'))
+        .catch(() => console.log('Falha ao registrar Service Worker'));
+    }
+  </script>
 </body>
 </html>
