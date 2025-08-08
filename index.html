@@ -1,40 +1,55 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>I.A.R.A. - Império Zeus</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>I.A.R.A. – Império Zeus</title>
   <style>
     body {
       margin: 0;
-      padding: 0;
-      background-color: #000014;
-      color: white;
       font-family: Arial, sans-serif;
+      background-color: #001f3f; /* azul escuro bonito */
+      color: #ffffff;
       text-align: center;
     }
-    .capa {
-      width: 100%;
-      max-width: 100%;
-      height: auto;
+
+    .header {
+      background-color: #001f3f;
+      padding: 20px 0;
     }
-    h1 {
-      margin-top: 20px;
+
+    .header h1 {
       font-size: 2.5em;
-      color: #00ccff;
+      color: #00ffff; /* azul neon claro */
+      margin: 0;
     }
-    footer {
-      margin-top: 30px;
-      color: #888;
+
+    .banner {
+      width: 100%;
+      max-height: 500px;
+      object-fit: cover;
+    }
+
+    .footer {
+      background-color: #001a33;
+      padding: 10px 0;
+      position: relative;
+      bottom: 0;
+      width: 100%;
+      color: #ffffff;
+      font-size: 0.9em;
     }
   </style>
 </head>
 <body>
-  <img src="Iara.jpg" alt="Capa IARA" class="capa" />
-  <h1>I.A.R.A. - Império Zeus</h1>
+  <div class="header">
+    <h1>Império Zeus</h1>
+  </div>
 
-  <footer>
-    Desenvolvido por Zeus Desenvolvedor
-  </footer>
+  <img src="Iara.jpg" alt="Capa I.A.R.A." class="banner" />
+
+  <div class="footer">
+    <p>I.A.R.A. – Inteligência Artificial de Resposta Autônoma</p>
+  </div>
 </body>
 </html>
