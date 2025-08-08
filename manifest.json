@@ -1,21 +1,15 @@
 {
-  "short_name": "IARA ZEUS",
-  "name": "IARA ZEUS - Inteligência Artificial Autônoma",
+  "name": "Nova Fusion Master",
+  "short_name": "NFM",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#00ffff",
   "icons": [
     {
-      "src": "icon-192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "icon-512.png",
-      "type": "image/png",
-      "sizes": "512x512"
+      "src": "Iara.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
     }
-  ],
-  "start_url": "./index.html",
-  "display": "standalone",
-  "theme_color": "#00ffff",
-  "background_color": "#000000",
-  "orientation": "portrait-primary"
+  ]
 }
