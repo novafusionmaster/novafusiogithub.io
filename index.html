@@ -4,24 +4,34 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Nova Fusion Master</title>
+
+  <!-- Meta para PWA -->
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#00ffff" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
   <style>
+    /* Estilo para ocupar tela toda com a imagem */
     html, body {
-      margin: 0;
-      height: 100%;
+      margin: 0; padding: 0; height: 100%;
+      font-family: Arial, sans-serif;
       background: url('Iara.jpg') no-repeat center center fixed;
       background-size: cover;
-      font-family: Arial, sans-serif;
+      color: #fff;
     }
   </style>
 </head>
 <body>
+  <!-- Conteúdo vazio para manter só a imagem de fundo -->
+
   <script>
+    // Registro do Service Worker para PWA
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('service-worker.js')
-        .then(() => console.log('Service Worker registrado com sucesso!'))
-        .catch(() => console.log('Falha ao registrar Service Worker'));
+      .then(() => console.log('Service Worker registrado com sucesso!'))
+      .catch(() => console.log('Falha ao registrar Service Worker'));
     }
   </script>
 </body>
