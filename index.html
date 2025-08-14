@@ -1,40 +1,118 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Zeus Master</title>
+  <meta name="description" content="Site otimizado e pronto para monetização.">
+  <meta name="theme-color" content="#000000" />
+
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <!-- Performance: ajuda o navegador a buscar a sua capa antes -->
+  <link rel="preload" href="/iara.jpg" as="image" fetchpriority="high">
+
   <style>
-    body {
-      margin: 0;
-      background: #000;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      text-align: center;
+    /* Reset mínimo para consistência */
+    html,body{height:100%;margin:0}
+    *{box-sizing:border-box}
+
+    :root{
+      /* Se quiser “diminuir” a agressividade da imagem, ajuste o overlay (0 = sem; 0.25 = leve) */
+      --overlay: 0.15;
+      --bg-color: #000;
     }
-    header {
-      padding: 20px;
-      font-size: 32px;
-      background: rgba(0, 0, 0, 0.5);
-      font-weight: bold;
+
+    body{
+      background: var(--bg-color) center center / cover no-repeat fixed;
+      /* fallback enquanto a imagem não carrega */
+      background-image: none;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:100vh;
+      position:relative;
+      isolation:isolate;
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
     }
-    .capa {
-      width: 100%;
-      min-height: calc(100vh - 100px);
-      background: url('iara.jpg') center/cover no-repeat;
+
+    /* Overlay suave para dar contraste (sem mudar sua arte) */
+    body::before{
+      content:"";
+      position:fixed; inset:0;
+      background: rgba(0,0,0,var(--overlay));
+      z-index:0;
+      pointer-events:none;
     }
-    footer {
-      padding: 10px;
-      font-size: 14px;
-      background: rgba(0, 0, 0, 0.7);
+
+    /* Container invisível (mantém a página “limpa”) */
+    .canvas{
+      position:relative;
+      z-index:1;
+      width:100%;
+      max-width:1200px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
     }
+
+    /* Slots de anúncio prontos (ficam ocultos até você colar sua tag) */
+    .ad-slot{display:none}
+    .ad-slot.ad-ready{display:block}
+
+    /* Evita scroll acidental; se quiser permitir, remova esta linha */
+    html, body{overflow:hidden}
   </style>
 </head>
 <body>
-  <header>IMPÉRIUM ZEUS</header>
-  <div class="capa"></div>
-  <footer>
-    IARA ZEUS MASTER © 2025
-  </footer>
+  <div class="canvas" aria-hidden="true"></div>
+
+  <!-- Slots de anúncio (prontos para futura ativação) -->
+  <div id="ad-top" class="ad-slot" aria-hidden="true"></div>
+  <div id="ad-bottom" class="ad-slot" aria-hidden="true"></div>
+
+  <script>
+    // Aplica a imagem de capa como background da página assim que possível
+    (function(){
+      const src = "/iara.jpg"; // mantenha exatamente este nome e caminho
+      const img = new Image();
+      img.decoding = "async";
+      img.loading = "eager";
+      img.src = src;
+      img.addEventListener('load', () => {
+        document.body.style.backgroundImage = `url("${src}")`;
+      });
+
+      // Registro do Service Worker para PWA/caching offline
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(()=>{});
+        });
+      }
+
+      // Helpers simples para quando você colar seu script de monetização:
+      // chame window.enableAds('top') ou ('bottom') para revelar o slot.
+      window.enableAds = function(where){
+        const el = document.getElementById(where === 'bottom' ? 'ad-bottom' : 'ad-top');
+        if(el) el.classList.add('ad-ready');
+      };
+    })();
+  </script>
+
+  <!-- 
+    💰 Monetização (exemplo de como colar, sem afetar o visual):
+    1) Cole aqui, ABAIXO deste comentário, o script da Adsterra / rede que você usar.
+    2) Aponte a rede para #ad-top ou #ad-bottom com o seletor de container.
+    3) Se a rede não exibir imediatamente, chame: window.enableAds('top') ou ('bottom').
+    
+    EXEMPLO GENÉRICO (NÃO É UM SCRIPT REAL):
+    <script src="https://rede.exemplo/tag.js" data-container="#ad-bottom" async></script>
+    <script>window.enableAds('bottom');</script>
+  -->
 </body>
 </html>
