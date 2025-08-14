@@ -1,34 +1,128 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<!doctype html>
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zeus Master</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background: #000;
-            color: white;
-            text-align: center;
-        }
-        header {
-            background-color: rgba(0, 0, 0, 0.6);
-            padding: 15px;
-            font-size: 26px;
-            font-weight: bold;
-        }
-        .capa {
-            width: 100%;
-            height: 100vh;
-            background: url('iara.jpg') no-repeat center center;
-            background-size: cover;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Zeus Master</title>
+  <meta name="description" content="Zeus Master — site otimizado, PWA e pronto para anúncios." />
+  <meta name="theme-color" content="#0b0b0b" />
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin>
+  <link rel="preconnect" href="https://googleads.g.doubleclick.net" crossorigin>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="favicon.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  <style>
+    /* reset mínimo */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%;background:#000;color:#fff;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Arial,sans-serif}
+    /* background full */
+    .bg{
+      position:fixed;inset:0;z-index:-1;
+      background:url("iara.jpg") center/cover no-repeat fixed;
+      filter: contrast(1.02) saturate(1.02);
+      will-change: transform;
+    }
+    /* overlay pra leitura */
+    .shade{position:fixed;inset:0;background:rgba(0,0,0,.25);z-index:-1}
+
+    /* layout */
+    .wrap{
+      min-height:100%;
+      display:flex;flex-direction:column;
+      align-items:center;justify-content:center;
+      gap:24px;padding:32px;
+      text-align:center;
+      backdrop-filter: blur(0.3px);
+    }
+    h1{
+      font-size:clamp(28px,4vw,44px);
+      letter-spacing:.04em;
+      text-shadow:0 2px 18px rgba(0,0,0,.45);
+      font-weight:800;
+    }
+    .buttons{
+      display:flex;flex-wrap:wrap;gap:12px;justify-content:center
+    }
+    button{
+      appearance:none;border:0;border-radius:16px;padding:14px 18px;
+      background:rgba(0,0,0,.55);
+      box-shadow:0 6px 22px rgba(0,0,0,.25), inset 0 0 0 1px rgba(255,255,255,.06);
+      color:#fff;font-weight:700;letter-spacing:.02em;
+      cursor:pointer;transition:transform .15s ease,opacity .15s ease,background .15s ease
+    }
+    button:hover{transform:translateY(-1px);background:rgba(0,0,0,.65)}
+    .row{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap}
+    .pill{
+      background:rgba(0,0,0,.55);border-radius:999px;padding:10px 14px;
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)
+    }
+    .ad-slot{width:min(100%,970px);min-height:90px;display:block}
+    footer{position:fixed;bottom:10px;left:0;right:0;text-align:center;font-size:12px;opacity:.75}
+    /* acessibilidade */
+    @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}button{transition:none}}
+  </style>
+
+  <!-- Coloque seu snippet do Google AdSense/Ad Manager AQUI -->
+  <!-- EXEMPLO (substitua pelo seu, não use em branco):
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+  -->
 </head>
 <body>
-    <header>Zeus Master</header>
-    <div class="capa"></div>
+  <div class="bg" aria-hidden="true"></div>
+  <div class="shade" aria-hidden="true"></div>
+
+  <main class="wrap" role="main">
+    <h1>Zeus Master</h1>
+
+    <!-- botões principais -->
+    <div class="buttons">
+      <button id="btnStart">Iniciar automático</button>
+      <button id="btnPause">Pausar</button>
+    </div>
+
+    <!-- valores em ordem: 150 / 250 / 450 -->
+    <div class="row">
+      <button class="pill" data-amt="150">R$ 150</button>
+      <button class="pill" data-amt="250">R$ 250</button>
+      <button class="pill" data-amt="450">R$ 450</button>
+    </div>
+
+    <!-- slot de banner (topo/meio) -->
+    <ins class="ad-slot" id="ad-top"></ins>
+  </main>
+
+  <!-- slot de banner (rodapé fixo opcional) -->
+  <footer>
+    <ins class="ad-slot" id="ad-bottom"></ins>
+  </footer>
+
+  <script>
+    // PWA: registro do service worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js');
+      });
+    }
+
+    // UI simples
+    const log = (...a)=>console.debug('[ZeusMaster]',...a);
+    const startBtn = document.getElementById('btnStart');
+    const pauseBtn = document.getElementById('btnPause');
+
+    let running = false;
+    startBtn?.addEventListener('click', ()=>{ running = true; log('auto ON') });
+    pauseBtn?.addEventListener('click', ()=>{ running = false; log('auto OFF') });
+
+    // Ordem correta de saques (150, 250, 450)
+    document.querySelectorAll('.pill').forEach(p=>{
+      p.addEventListener('click', ()=>{
+        const v = p.getAttribute('data-amt');
+        alert(`Solicitação de saque: R$ ${v}`);
+      })
+    });
+
+    // placeholder seguro para anúncios: carregue seu script AdSense/Ad Manager real no <head>
+    // e aqui faça a chamada de exibição (ex.: (adsbygoogle = window.adsbygoogle || []).push({});).
+  </script>
 </body>
 </html>
